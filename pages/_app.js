@@ -1,21 +1,11 @@
-import React from 'react';
-import App from 'next/app';
+import { Global } from '@emotion/react';
+import { globalStyles } from '../src/commons/styles/globalStyles';
 
-class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
-  render() {
-    const { Component, pageProps } = this.props;
-    return <Component {...pageProps} />;
-  }
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      <Global styles={globalStyles} />
+      <Component {...pageProps} />
+    </>
+  );
 }
-
-export default MyApp;

@@ -1,5 +1,5 @@
-import RealZero from '../../src/component/realzero/realzero.index';
+import RealZero from '../../src/component/realzero/main/realzero.index';
 
 export default function RealZeroPage() {
-  return <RealZero />
-};
+  return <RealZero />;
+}
