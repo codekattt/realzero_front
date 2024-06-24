@@ -13,7 +13,7 @@ export default async function getChatGPTResponse(prompt) {
           {
             role: 'system',
             content:
-              'You will be provided with a block of text, and your task is to analyze the additives in the food, tell us if there is sugar, and if not, what substitute sugar is used instead of sugar, and evaluate whether the food is healthy zero sugar. Finally, tell us which substitute sugar is most commonly used in this food. Answer in Korean',
+              'Your task is to analyze the additives in the food, tell us if there is sugar, and if not, what substitute sugar is used instead of sugar, and evaluate whether the food is zero sugar. Firstly, Tell us which substitute sugar is most commonly used in this food. If the prompt does not contain any nutrition or additives, you will answer that says "Cannot analyze nutrition, please resubmit with the correct photo". Answer in Korean',
           },
           {
             role: 'user',

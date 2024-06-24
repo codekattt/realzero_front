@@ -9,7 +9,12 @@ function Results() {
   const [resultData, setResultData] = useState(null);
   const [error, setError] = useState(null); // 에러 상태 추가
   const router = useRouter();
+  const { imageBase64 } = router.query;
   const isMounted = useRef(true);
+
+  const moveToCaution = () => {
+    router.push('/caution');
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -57,14 +62,26 @@ function Results() {
               <br />
               ‘ThisType’ 식품입니다.
             </S.RzH1>
+            <S.ResultImage
+              src={imageBase64}
+              alt="Uploaded Image"
+            ></S.ResultImage>
             <S.Result>
               {loading ? <div>영양성분 분석중..!</div> : null}
               {error ? <div>{error}</div> : null}
               {resultData ? <TypingEffect text={resultData} /> : null}
             </S.Result>
           </S.ResultWrapper>
+          <S.BottomCaution>
+            ChatGPT를 이용한 분석 결과입니다. <br />
+            분석 결과가 틀리거나 실제 영양성분과 다를 수 있으니
+            <br />
+            참고 용도로만 이용하시기 바랍니다!
+          </S.BottomCaution>
           <S.BottomButtonWrapper>
-            <S.BottomButton>AI 영양성분 분석 시작하기</S.BottomButton>
+            <S.BottomButton onClick={moveToCaution}>
+              다시 분석하기
+            </S.BottomButton>
           </S.BottomButtonWrapper>
         </S.Wrapper>
       </div>

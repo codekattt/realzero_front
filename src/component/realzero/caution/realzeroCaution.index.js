@@ -5,6 +5,7 @@ import * as S from './realzeroCaution.styles';
 
 export default function RealZeroCaution() {
   const [file, setFile] = useState(null);
+  const [imageBase64, setImageBase64] = useState('');
   const fileInputRef = useRef(null); // 파일 입력 참조 생성
   const router = useRouter();
 
@@ -19,49 +20,48 @@ export default function RealZeroCaution() {
       return;
     }
 
-    // 파일이 이미지인지 확인 (예: 'image/jpeg', 'image/png')
     if (!uploadedFile.type.startsWith('image/')) {
       alert('이미지 파일만 업로드 가능합니다.');
       return;
     }
 
-    setFile(uploadedFile);
+    // 파일을 Base64로 인코딩
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImageBase64(reader.result);
+      setFile(uploadedFile);
 
-    const formData = new FormData();
-    formData.append('file', uploadedFile);
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
 
-    try {
-      const ocrResponse = await axios.post(
-        'http://localhost:5000/ocr',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      );
-
-      if (ocrResponse.data && ocrResponse.data.inferText) {
-        const inferTextString = ocrResponse.data.inferText.join(' ');
-
-        // 결과 페이지로 즉시 리디렉션하고, 로딩 상태 표시
-        router.push({
-          pathname: '/results',
-          query: {
-            loading: true, // 로딩 상태 전달
-            inferText: inferTextString,
-          },
+      axios
+        .post('http://localhost:5000/ocr', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((ocrResponse) => {
+          if (ocrResponse.data && ocrResponse.data.inferText) {
+            const inferTextString = ocrResponse.data.inferText.join(' ');
+            // 결과 페이지로 즉시 리디렉션하고, 로딩 상태와 이미지 Base64 인코딩 데이터 전달
+            router.push({
+              pathname: '/results',
+              query: {
+                loading: true,
+                inferText: inferTextString,
+                imageBase64: reader.result, // Base64 이미지 문자열을 쿼리로 전달
+              },
+            });
+          } else {
+            console.error('OCR 응답이 유효하지 않습니다.');
+            alert('텍스트가 추출되지 않았습니다. 잠시 후 다시 시도해주세요.');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('일시적 오류입니다. 잠시 후 다시 시도해주세요.');
         });
-      } else {
-        console.error('OCR 응답이 유효하지 않습니다.');
-        alert('텍스트가 추출되지 않았습니다. 잠시 후 다시 시도해주세요.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('일시적 오류입니다. 잠시 후 다시 시도해주세요.');
-    }
+    };
+    reader.readAsDataURL(uploadedFile);
   };
-
   const handleButtonClick = () => {
     fileInputRef.current.click(); // 파일 입력 창을 열기 위해 클릭 이벤트 트리거
   };

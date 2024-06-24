@@ -1,14 +1,16 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 100%;
   background-color: #f8f8f8;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
 `;
 
 export const CautionWrapper = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,12 +147,12 @@ export const BottomText = styled.div`
 `;
 
 export const BottomButtonWrapper = styled.div`
-  width: 500px;
-  height: 100px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-bottom: 40px;
 `;
 
 export const BottomButton = styled.div`
@@ -159,7 +161,8 @@ export const BottomButton = styled.div`
   border-radius: 50px;
   color: #fff;
   background: #538596;
-  width: 416px;
+  width: 90%;
+  max-width: 416px;
   height: 61px;
   cursor: pointer;
 

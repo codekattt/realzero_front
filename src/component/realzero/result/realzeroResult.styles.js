@@ -1,19 +1,11 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
-  width: 500px;
+  width: 100%;
   height: 100%;
+  max-width: 500px;
   background-color: #f8f8f8;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
-`;
-
-export const ResultWrapper = styled.div`
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 `;
 
 export const TopNavigation = styled.div`
@@ -21,12 +13,28 @@ export const TopNavigation = styled.div`
   margin: 50px 0 50px 30px;
 `;
 
+export const ResultWrapper = styled.div`
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
+
+export const ResultImage = styled.img`
+  width: 90%;
+  max-width: 416px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+`;
+
 export const Result = styled.div`
   width: 90%;
   max-width: 416px;
-  min-height: 100px;
+  min-height: 336px;
   border-radius: 15px;
-  background-color: #ddd;
+  background-color: #eeeeee;
   padding: 24px;
   text-align: left;
   font-size: 20px;
@@ -42,45 +50,22 @@ export const RzH1 = styled.h1`
   margin-bottom: 80px;
 `;
 
-export const RzH2 = styled.h2`
-  font-size: 20px;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.8px;
-  margin-bottom: 0;
-`;
-
-export const RzH4 = styled.h4`
+export const BottomCaution = styled.div`
+  width: 100%;
+  max-width: 500px;
   text-align: center;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: normal;
-  letter-spacing: -0.64px;
-  margin: 16px 0 30px 0;
-`;
-
-export const ImgWrapper = styled.div`
-  width: 334px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 80px;
-`;
-
-export const Img = styled.div`
-  width: 159px;
-  height: 229px;
-  background-color: #ddd;
-  border-radius: 15px;
+  color: #b7b7b7;
+  margin: 60px 0;
+  padding: 0 15px;
 `;
 
 export const BottomButtonWrapper = styled.div`
-  width: 500px;
-  height: 100px;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 40px;
 `;
 
 export const BottomButton = styled.div`
@@ -89,7 +74,12 @@ export const BottomButton = styled.div`
   border-radius: 50px;
   color: #fff;
   background: #538596;
-  width: 416px;
+  width: 90%;
+  max-width: 416px;
   height: 61px;
   cursor: pointer;
+
+  :hover {
+    background-color: #1a7a9b;
+  }
 `;

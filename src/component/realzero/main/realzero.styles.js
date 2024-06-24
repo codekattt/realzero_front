@@ -1,15 +1,20 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 100%;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
 `;
 
 export const RzTop = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 886px;
   background-image: url('img/realzero_main.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +48,8 @@ export const TopButton = styled.div`
   border-radius: 50px;
   color: #538596;
   background: rgba(255, 255, 255, 1);
-  width: 416px;
+  width: 100%;
+  max-width: 416px;
   height: 61px;
   margin-bottom: 52px;
   cursor: pointer;
@@ -55,7 +61,8 @@ export const TopButton = styled.div`
 `;
 
 export const RzOne = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 503px;
   background-color: #f8f8f8;
   display: flex;
@@ -66,7 +73,8 @@ export const RzOne = styled.div`
 `;
 
 export const RzTwo = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 703px;
   background-color: #fff;
   display: flex;
@@ -77,7 +85,8 @@ export const RzTwo = styled.div`
 `;
 
 export const RzThree = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 843px;
   background-color: #f8f8f8;
   display: flex;
@@ -182,7 +191,8 @@ export const RzThreeImg4 = styled.div`
 `;
 
 export const BottomButtonWrapper = styled.div`
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 100px;
   display: flex;
   flex-direction: row;
