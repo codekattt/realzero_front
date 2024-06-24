@@ -26,7 +26,7 @@ function Results() {
       } catch (error) {
         if (isMounted.current) {
           console.error('데이터 로딩 중 오류가 발생했습니다:', error);
-          setError('데이터를 로드하는 중 오류가 발생했습니다.');
+          setError('일시적 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
           setLoading(false);
         }
       }
@@ -50,18 +50,17 @@ function Results() {
         }}
       >
         <S.Wrapper>
-          <S.TopNavigation> 〈 이미지 업로드</S.TopNavigation>
+          <S.TopNavigation> 〈 분석 결과</S.TopNavigation>
           <S.ResultWrapper>
-            <S.RzH1>분석 결과</S.RzH1>
+            <S.RzH1>
+              AI 분석 결과, 이 제품은
+              <br />
+              ‘ThisType’ 식품입니다.
+            </S.RzH1>
             <S.Result>
-              분석 결과분석 결과분석 결과분석 결과분석 결과분석 결과분석
-              결과분석 결과분석 결과분석 결과분석 결과분석 결과분석 결과분석
-              결과분석 결과분석 결과분석 결과분석 결과분석 결과분석 결과분석
-              결과분석 결과분석 결과분석 결과분석 결과분석 결과분석 결과분석
-              결과분석 결과분석 결과분석 결과분석 결과분석 결과분석 결과
-              {/* {loading ? <div>영양성분 분석중..!</div> : null}
+              {loading ? <div>영양성분 분석중..!</div> : null}
               {error ? <div>{error}</div> : null}
-              {resultData ? <TypingEffect text={resultData} /> : null} */}
+              {resultData ? <TypingEffect text={resultData} /> : null}
             </S.Result>
           </S.ResultWrapper>
           <S.BottomButtonWrapper>

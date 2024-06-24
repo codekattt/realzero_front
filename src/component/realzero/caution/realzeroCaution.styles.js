@@ -20,7 +20,7 @@ export const Number = styled.div`
   width: 28px;
   height: 28px;
   border-radius: 50px;
-  background-color: black;
+  background-color: #538596;
   color: white;
   align-content: center;
   font-weight: 600;
@@ -30,6 +30,11 @@ export const Number = styled.div`
 export const TopNavigation = styled.div`
   font-size: 24px;
   margin: 50px 0 50px 30px;
+  cursor: pointer;
+
+  :hover {
+    color: #538596;
+  }
 `;
 
 export const RzH1 = styled.h1`
@@ -66,11 +71,77 @@ export const ImgWrapper = styled.div`
   margin-bottom: 80px;
 `;
 
-export const Img = styled.div`
+export const Img1 = styled.div`
   width: 159px;
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
+  background-image: url(img/caution1_wrong.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & img {
+    display: block;
+    float: inline-end;
+    margin: 10px;
+  }
+`;
+
+export const Img2 = styled.div`
+  width: 159px;
+  height: 229px;
+  background-color: #ddd;
+  border-radius: 15px;
+  background-image: url(img/caution1_correct.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & img {
+    display: block;
+    float: inline-end;
+    margin: 10px;
+  }
+`;
+export const Img3 = styled.div`
+  width: 159px;
+  height: 229px;
+  background-color: #ddd;
+  border-radius: 15px;
+  background-image: url(img/caution2_wrong.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & img {
+    display: block;
+    float: inline-end;
+    margin: 10px;
+  }
+`;
+export const Img4 = styled.div`
+  width: 159px;
+  height: 229px;
+  background-color: #ddd;
+  border-radius: 15px;
+  background-image: url(img/caution2_correct.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & img {
+    display: block;
+    float: inline-end;
+    margin: 10px;
+  }
+`;
+
+export const BottomText = styled.div`
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: #aeaeae;
 `;
 
 export const BottomButtonWrapper = styled.div`
@@ -91,4 +162,8 @@ export const BottomButton = styled.div`
   width: 416px;
   height: 61px;
   cursor: pointer;
+
+  :hover {
+    background-color: #1a7a9b;
+  }
 `;

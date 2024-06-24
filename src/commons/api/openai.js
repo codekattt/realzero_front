@@ -12,12 +12,8 @@ export default async function getChatGPTResponse(prompt) {
         messages: [
           {
             role: 'system',
-            content: '2. 다음 문서에서 영양성분 정보만 뽑아서 표시해주세요.',
-          },
-          {
-            role: 'system',
             content:
-              '3. 영양성분이 대체적으로 어떤지 고단백인지, 저지방인지 등을 분석해주세요. 결과값은 번호를 매겨 표시해주세요.',
+              'You will be provided with a block of text, and your task is to analyze the additives in the food, tell us if there is sugar, and if not, what substitute sugar is used instead of sugar, and evaluate whether the food is healthy zero sugar. Finally, tell us which substitute sugar is most commonly used in this food. Answer in Korean',
           },
           {
             role: 'user',

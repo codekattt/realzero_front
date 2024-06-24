@@ -47,6 +47,11 @@ export const TopButton = styled.div`
   height: 61px;
   margin-bottom: 52px;
   cursor: pointer;
+
+  :hover {
+    color: white;
+    background-color: #538596;
+  }
 `;
 
 export const RzOne = styled.div`
@@ -87,6 +92,7 @@ export const RzH1 = styled.h1`
   font-weight: 700;
   line-height: normal;
   letter-spacing: -2.04px;
+  margin-bottom: 30px;
 `;
 
 export const RzH3 = styled.h3`
@@ -96,6 +102,9 @@ export const RzH3 = styled.h3`
   line-height: normal;
   letter-spacing: -0.88px;
   margin: 24px 0;
+  border-radius: 50px;
+  padding: 10px 16px;
+  background-color: white;
 `;
 
 export const RzH5 = styled.h5`
@@ -104,6 +113,7 @@ export const RzH5 = styled.h5`
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.64px;
+  margin-top: 30px;
 `;
 
 export const TextWrapper = styled.div``;
@@ -113,6 +123,10 @@ export const RzTwoImgWrapper = styled.div`
   height: 341px;
   background-color: #ddd;
   border-radius: 15px;
+  background-image: url(img/main_part2.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 export const RzThreeImgWrapper = styled.div`
@@ -123,11 +137,48 @@ export const RzThreeImgWrapper = styled.div`
   margin: 8px 0;
 `;
 
-export const RzThreeImg = styled.div`
+export const RzThreeImg1 = styled.div`
   width: 159px;
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
+  background-image: url(img/main_sugar.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
+export const RzThreeImg2 = styled.div`
+  width: 159px;
+  height: 229px;
+  background-color: #ddd;
+  border-radius: 15px;
+  background-image: url(img/main_al.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
+export const RzThreeImg3 = styled.div`
+  width: 159px;
+  height: 229px;
+  background-color: #ddd;
+  border-radius: 15px;
+  background-image: url(img/main_honey.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+
+export const RzThreeImg4 = styled.div`
+  width: 159px;
+  height: 229px;
+  background-color: #ddd;
+  border-radius: 15px;
+  background-image: url(img/main_fruit.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 export const BottomButtonWrapper = styled.div`
@@ -137,7 +188,7 @@ export const BottomButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: #f8f8f8;
 `;
 
 export const BottomButton = styled.div`
@@ -149,4 +200,8 @@ export const BottomButton = styled.div`
   width: 416px;
   height: 61px;
   cursor: pointer;
+
+  :hover {
+    background-color: #1a7a9b;
+  }
 `;
