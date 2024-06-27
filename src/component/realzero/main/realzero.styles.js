@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 export const RzTop = styled.div`
   width: 100%;
   max-width: 500px;
-  height: 886px;
+  height: 786px;
   background-image: url('img/realzero_main_gpt_opacity.png');
   background-size: cover;
   background-position: center;
