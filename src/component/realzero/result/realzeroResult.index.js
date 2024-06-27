@@ -61,21 +61,15 @@ function Results() {
           <S.TopNavigation> 〈 분석 결과</S.TopNavigation>
           <S.ResultWrapper>
             <S.RzH1>
-              AI 분석 결과, 이 제품은
+              AI 분석 결과입니다.
               <br />
-              ‘ThisType’ 식품입니다.
+              {/* ‘ThisType’ 식품입니다. */}
             </S.RzH1>
             <S.ResultImage
               src={imageBase64}
               alt="Uploaded Image"
             ></S.ResultImage>
             <S.Result>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <span style={{ color: 'gray', marginRight: '4px' }}>
-                  AI 성분분석 중...
-                </span>
-                <ClipLoader size={18} color={'gray'} />
-              </div>
               {loading ? (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <span style={{ color: 'gray', marginRight: '4px' }}>

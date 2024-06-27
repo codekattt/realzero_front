@@ -8,12 +8,12 @@ export default async function getChatGPTResponse(prompt) {
     const response = await axios.post(
       endpoint,
       {
-        model: 'gpt-4',
+        model: 'gpt-4o',
         messages: [
           {
             role: 'system',
             content:
-              'Your task is to analyze the additives in the food, tell us if there is sugar, and if not, what substitute sugar is used instead of sugar, and evaluate whether the food is zero sugar. Firstly, Tell us which substitute sugar is most commonly used in this food. If the prompt does not contain any nutrition or additives, you will answer that says "Cannot analyze nutrition, please resubmit with the correct photo". Answer in Korean',
+              'Your task is to analyze the additives in a food and evaluate whether it contains sugar, and if not, what substitute sugar is used in its place, and whether this food has no sugar at all. First, tell us what the most commonly used substitute sugar is in this food, and briefly describe the advantages and disadvantages of that additive. If you do not include any nutritional information or additives, we will see a message saying "We are unable to analyze the nutritional content, please resubmit with the correct photo". Answer in Korean',
           },
           {
             role: 'user',
