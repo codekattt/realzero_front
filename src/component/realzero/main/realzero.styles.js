@@ -11,7 +11,7 @@ export const RzTop = styled.div`
   width: 100%;
   max-width: 500px;
   height: 886px;
-  background-image: url('img/realzero_main.png');
+  background-image: url('img/realzero_main_gpt_opacity.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -48,7 +48,7 @@ export const TopButton = styled.div`
   border-radius: 50px;
   color: #538596;
   background: rgba(255, 255, 255, 1);
-  width: 100%;
+  width: 90%;
   max-width: 416px;
   height: 61px;
   margin-bottom: 52px;
@@ -207,7 +207,8 @@ export const BottomButton = styled.div`
   border-radius: 50px;
   color: #fff;
   background: #538596;
-  width: 416px;
+  width: 90%;
+  max-width: 416px;
   height: 61px;
   cursor: pointer;
 

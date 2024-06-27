@@ -6,6 +6,7 @@ import * as S from './realzeroCaution.styles';
 export default function RealZeroCaution() {
   const [file, setFile] = useState(null);
   const [imageBase64, setImageBase64] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null); // 파일 입력 참조 생성
   const router = useRouter();
 
@@ -25,6 +26,8 @@ export default function RealZeroCaution() {
       return;
     }
 
+    setIsUploading(true);
+
     // 파일을 Base64로 인코딩
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -35,7 +38,7 @@ export default function RealZeroCaution() {
       formData.append('file', uploadedFile);
 
       axios
-        .post('http://localhost:5000/ocr', formData, {
+        .post('https://realzero-back.fly.devilian/ocr', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((ocrResponse) => {
@@ -58,6 +61,9 @@ export default function RealZeroCaution() {
         .catch((error) => {
           console.error('Error:', error);
           alert('일시적 오류입니다. 잠시 후 다시 시도해주세요.');
+        })
+        .finally(() => {
+          setIsUploading(false);
         });
     };
     reader.readAsDataURL(uploadedFile);
@@ -133,7 +139,7 @@ export default function RealZeroCaution() {
           </S.BottomText>
           <S.BottomButtonWrapper>
             <S.BottomButton onClick={handleButtonClick}>
-              이미지 업로드
+              {isUploading ? 'AI가 이미지 분석 중...' : '이미지 업로드'}
             </S.BottomButton>
           </S.BottomButtonWrapper>
 

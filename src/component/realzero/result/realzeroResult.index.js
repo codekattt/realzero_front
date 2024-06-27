@@ -2,12 +2,13 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import getChatGPTResponse from '@/commons/api/openai';
 import TypingEffect from '@/commons/styles/typingEffect';
+import { ClipLoader } from 'react-spinners';
 import * as S from './realzeroResult.styles';
 
 function Results() {
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState(null);
-  const [error, setError] = useState(null); // 에러 상태 추가
+  const [error, setError] = useState(null);
   const router = useRouter();
   const { imageBase64 } = router.query;
   const isMounted = useRef(true);
@@ -18,11 +19,13 @@ function Results() {
 
   useEffect(() => {
     async function fetchData() {
-      if (!router.query.inferText) return; // inferText 유효성 검사
-
+      if (!router.query.inferText) return;
       setLoading(true);
-      setError(null); // 로딩 시작 전 에러 초기화
+      setError(null);
       try {
+        // 인위적인 지연 추가
+        await new Promise((resolve) => setTimeout(resolve, 30000));
+
         const response = await getChatGPTResponse(router.query.inferText);
         if (isMounted.current) {
           setResultData(response);
@@ -67,7 +70,20 @@ function Results() {
               alt="Uploaded Image"
             ></S.ResultImage>
             <S.Result>
-              {loading ? <div>영양성분 분석중..!</div> : null}
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <span style={{ color: 'gray', marginRight: '4px' }}>
+                  AI 성분분석 중...
+                </span>
+                <ClipLoader size={18} color={'gray'} />
+              </div>
+              {loading ? (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <span style={{ color: 'gray', marginRight: '4px' }}>
+                    AI 성분분석 중...
+                  </span>
+                  <ClipLoader size={18} color={'gray'} />
+                </div>
+              ) : null}
               {error ? <div>{error}</div> : null}
               {resultData ? <TypingEffect text={resultData} /> : null}
             </S.Result>

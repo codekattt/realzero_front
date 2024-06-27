@@ -24,9 +24,11 @@ export const ResultWrapper = styled.div`
 
 export const ResultImage = styled.img`
   width: 90%;
+  min-height: 100px;
   max-width: 416px;
   border-radius: 15px;
   margin-bottom: 20px;
+  border: 1px solid #ddd;
 `;
 
 export const Result = styled.div`
@@ -37,8 +39,9 @@ export const Result = styled.div`
   background-color: #eeeeee;
   padding: 24px;
   text-align: left;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.4;
+  color: #0c343d;
 `;
 
 export const RzH1 = styled.h1`
