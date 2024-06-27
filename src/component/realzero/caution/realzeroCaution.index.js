@@ -38,7 +38,7 @@ export default function RealZeroCaution() {
       formData.append('file', uploadedFile);
 
       axios
-        .post('https://realzero-back.fly.devilian/ocr', formData, {
+        .post('https://realzero-back.fly.dev/ocr', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then((ocrResponse) => {
