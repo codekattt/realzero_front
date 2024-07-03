@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const TypingEffect = ({ text }) => {
+interface ITypingEffectProps {
+  text: string;
+}
+
+const TypingEffect = ({ text }: ITypingEffectProps) => {
   const [displayedText, setDisplayedText] = useState('');
   const [index, setIndex] = useState(0);
 
@@ -9,7 +13,7 @@ const TypingEffect = ({ text }) => {
       const timeoutId = setTimeout(() => {
         setDisplayedText((prev) => prev + text[index]);
         setIndex((prev) => prev + 1);
-      }, 100); // 100ms 간격으로 타이핑 효과
+      }, 100);
       return () => clearTimeout(timeoutId);
     }
   }, [index, text]);

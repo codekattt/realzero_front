@@ -1,21 +1,31 @@
-import React, { useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import type { ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import * as S from './realzeroCaution.styles';
 
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+
 export default function RealZeroCaution() {
-  const [file, setFile] = useState(null);
-  const [imageBase64, setImageBase64] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
-  const fileInputRef = useRef(null); // 파일 입력 참조 생성
+  const [_, setFile] = useState<File | null>(null);
+  const [__, setImageBase64] = useState<string>('');
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1500,
+    });
+  }, []);
 
   const moveToMain = () => {
     router.push('/main');
   };
 
-  const handleFileChange = async (e) => {
-    const uploadedFile = e.target.files[0];
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const uploadedFile = e.target.files?.[0];
     if (!uploadedFile) {
       alert('이미지 파일을 선택해주세요.');
       return;
@@ -28,10 +38,10 @@ export default function RealZeroCaution() {
 
     setIsUploading(true);
 
-    // 파일을 Base64로 인코딩
     const reader = new FileReader();
     reader.onloadend = () => {
-      setImageBase64(reader.result);
+      const result = reader.result as string;
+      setImageBase64(result);
       setFile(uploadedFile);
 
       const formData = new FormData();
@@ -44,13 +54,12 @@ export default function RealZeroCaution() {
         .then((ocrResponse) => {
           if (ocrResponse.data && ocrResponse.data.inferText) {
             const inferTextString = ocrResponse.data.inferText.join(' ');
-            // 결과 페이지로 즉시 리디렉션하고, 로딩 상태와 이미지 Base64 인코딩 데이터 전달
             router.push({
               pathname: '/results',
               query: {
                 loading: true,
                 inferText: inferTextString,
-                imageBase64: reader.result, // Base64 이미지 문자열을 쿼리로 전달
+                imageBase64: result,
               },
             });
           } else {
@@ -69,7 +78,7 @@ export default function RealZeroCaution() {
     reader.readAsDataURL(uploadedFile);
   };
   const handleButtonClick = () => {
-    fileInputRef.current.click(); // 파일 입력 창을 열기 위해 클릭 이벤트 트리거
+    fileInputRef.current?.click();
   };
 
   return (
@@ -87,11 +96,11 @@ export default function RealZeroCaution() {
             {' '}
             〈 이미지 업로드
           </S.TopNavigation>
-          <S.RzH1>
+          <S.RzH1 data-aos="fade-up">
             정확한 성분 분석을 위한 <br />
             이미지 업로드 GUIDE
           </S.RzH1>
-          <S.CautionWrapper>
+          <S.CautionWrapper data-aos="fade-up">
             <S.Number>1</S.Number>
             <S.RzH2>
               글자가 잘리지 않고,
@@ -112,7 +121,7 @@ export default function RealZeroCaution() {
               </S.Img2>
             </S.ImgWrapper>
           </S.CautionWrapper>
-          <S.CautionWrapper>
+          <S.CautionWrapper data-aos="fade-up">
             <S.Number>2</S.Number>
             <S.RzH2>
               영양성분, 원재료와 관계없는 글자는
@@ -133,7 +142,7 @@ export default function RealZeroCaution() {
               </S.Img4>
             </S.ImgWrapper>
           </S.CautionWrapper>
-          <S.BottomText>
+          <S.BottomText data-aos="fade-up">
             이미지를 업로드하면 바로 분석이 시작됩니다. <br />
             결과 표출까지 최대 2분 소요될 수 있습니다.
           </S.BottomText>

@@ -3,7 +3,7 @@ import axios from 'axios';
 const apiKey = process.env.OPEN_AI_API;
 const endpoint = 'https://api.openai.com/v1/chat/completions';
 
-export default async function getChatGPTResponse(prompt) {
+export default async function getChatGPTResponse(prompt: string) {
   try {
     const response = await axios.post(
       endpoint,

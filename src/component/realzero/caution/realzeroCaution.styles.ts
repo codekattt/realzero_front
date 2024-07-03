@@ -141,7 +141,7 @@ export const Img4 = styled.div`
 
 export const BottomText = styled.div`
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   font-size: 14px;
   color: #aeaeae;
 `;

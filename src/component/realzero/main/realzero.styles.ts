@@ -94,6 +94,7 @@ export const RzThree = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding-bottom: 100px;
 `;
 
 export const RzH1 = styled.h1`
@@ -198,7 +199,9 @@ export const BottomButtonWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: none;
+  position: fixed;
+  bottom: 0;
 `;
 
 export const BottomButton = styled.div`
