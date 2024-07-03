@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import type { ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
+import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import * as S from './realzeroCaution.styles';
 
@@ -148,7 +149,14 @@ export default function RealZeroCaution() {
           </S.BottomText>
           <S.BottomButtonWrapper>
             <S.BottomButton onClick={handleButtonClick}>
-              {isUploading ? 'AI가 이미지 분석 중...' : '이미지 업로드'}
+              {isUploading ? (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  AI가 이미지 분석 중...
+                  <ClipLoader size={18} color={'white'} />
+                </div>
+              ) : (
+                '이미지 업로드'
+              )}
             </S.BottomButton>
           </S.BottomButtonWrapper>
 

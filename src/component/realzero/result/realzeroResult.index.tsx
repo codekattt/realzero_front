@@ -10,10 +10,21 @@ interface RouterQuery {
   imageBase64?: string;
 }
 
+const loadingMessages = [
+  '이미지에서 텍스트를 추출하고 있어요..',
+  '추출된 성분을 열심히 분석하고 있어요..',
+  '제로식품인지 확인하고 있어요..',
+  'AI가 답변을 준비하고 있어요..',
+];
+
 export default function RealZeroResults(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(false);
   const [resultData, setResultData] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loadingMessage, setLoadingMessage] = useState<string>(
+    loadingMessages[0],
+  );
+
   const router = useRouter();
   const { imageBase64, inferText } = router.query as RouterQuery;
   const isMounted = useRef(true);
@@ -23,14 +34,13 @@ export default function RealZeroResults(): JSX.Element {
   };
 
   useEffect(() => {
+    isMounted.current = true;
+
     async function fetchData(): Promise<void> {
       if (!inferText) return;
       setLoading(true);
       setError(null);
       try {
-        // 인위적인 지연 추가
-        await new Promise((resolve) => setTimeout(resolve, 30000));
-
         const response = await getChatGPTResponse(inferText);
         if (isMounted.current) {
           setResultData(response);
@@ -51,6 +61,21 @@ export default function RealZeroResults(): JSX.Element {
       isMounted.current = false;
     };
   }, [inferText]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (loading) {
+      interval = setInterval(() => {
+        setLoadingMessage((prev) => {
+          const currentIndex = loadingMessages.indexOf(prev);
+          const nextIndex = (currentIndex + 1) % loadingMessages.length;
+          return loadingMessages[nextIndex];
+        });
+      }, 2000);
+    }
+
+    return () => clearInterval(interval);
+  }, [loading]);
 
   return (
     <div
@@ -74,7 +99,7 @@ export default function RealZeroResults(): JSX.Element {
             {loading ? (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ color: 'gray', marginRight: '4px' }}>
-                  AI 성분분석 중...
+                  {loadingMessage}
                 </span>
                 <ClipLoader size={18} color={'gray'} />
               </div>
