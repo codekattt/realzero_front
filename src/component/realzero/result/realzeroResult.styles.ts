@@ -72,8 +72,9 @@ export const BottomButtonWrapper = styled.div`
 `;
 
 export const BottomButton = styled.div`
-  text-align: center;
-  align-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50px;
   color: #fff;
   background: #538596;

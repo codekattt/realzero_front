@@ -43,8 +43,9 @@ export const Contents = styled.div`
 `;
 
 export const TopButton = styled.div`
-  text-align: center;
-  align-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50px;
   color: #538596;
   background: rgba(255, 255, 255, 1);
@@ -205,8 +206,9 @@ export const BottomButtonWrapper = styled.div`
 `;
 
 export const BottomButton = styled.div`
-  text-align: center;
-  align-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50px;
   color: #fff;
   background: #538596;

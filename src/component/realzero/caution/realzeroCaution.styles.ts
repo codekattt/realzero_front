@@ -21,10 +21,12 @@ export const CautionWrapper = styled.div`
 export const Number = styled.div`
   width: 28px;
   height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50px;
   background-color: #538596;
   color: white;
-  align-content: center;
   font-weight: 600;
   margin-bottom: 10px;
 `;
@@ -156,8 +158,9 @@ export const BottomButtonWrapper = styled.div`
 `;
 
 export const BottomButton = styled.div`
-  text-align: center;
-  align-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50px;
   color: #fff;
   background: #538596;
