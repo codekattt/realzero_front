@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import getChatGPTResponse from '../../../commons/api/openai';
+import GetChatGPTResponse from '../../../commons/api/openai';
 import TypingEffect from '../../../commons/styles/typingEffect';
 import { ClipLoader } from 'react-spinners';
 import * as S from './realzeroResult.styles';
@@ -30,6 +30,7 @@ export default function RealZeroResults(): JSX.Element {
   const isMounted = useRef(true);
 
   const moveToCaution = (): void => {
+    alert('다시 분석하시겠습니까?');
     router.push('/caution');
   };
 
@@ -41,7 +42,7 @@ export default function RealZeroResults(): JSX.Element {
       setLoading(true);
       setError(null);
       try {
-        const response = await getChatGPTResponse(inferText);
+        const response = await GetChatGPTResponse(inferText);
         if (isMounted.current) {
           setResultData(response);
           setLoading(false);
