@@ -40,7 +40,7 @@ export const Result = styled.div`
   padding: 24px;
   text-align: left;
   font-size: 18px;
-  line-height: 1.4;
+  line-height: 1.6;
   color: #0c343d;
 `;
 
