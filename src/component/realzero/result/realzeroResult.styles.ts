@@ -42,6 +42,7 @@ export const Result = styled.div`
   font-size: 18px;
   line-height: 1.6;
   color: #0c343d;
+  white-space: pre-wrap;
 `;
 
 export const RzH1 = styled.h1`
