@@ -80,7 +80,7 @@ export const Img1 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/caution1_wrong.png);
+  background-image: url(img/caution1_wrong.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -97,7 +97,7 @@ export const Img2 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/caution1_correct.png);
+  background-image: url(img/caution1_correct.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -113,7 +113,7 @@ export const Img3 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/caution2_wrong.png);
+  background-image: url(img/caution2_wrong.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -129,7 +129,7 @@ export const Img4 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/caution2_correct.png);
+  background-image: url(img/caution2_correct.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

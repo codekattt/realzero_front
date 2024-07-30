@@ -26,33 +26,38 @@ export default function RealZeroCaution() {
   };
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const uploadedFile = e.target.files?.[0];
-    if (!uploadedFile) {
-      alert('이미지 파일을 선택해주세요.');
-      return;
-    }
+    try {
+      const uploadedFile = e.target.files?.[0];
+      if (!uploadedFile) {
+        alert('이미지 파일을 선택해주세요.');
+        return;
+      }
 
-    if (!uploadedFile.type.startsWith('image/')) {
-      alert('이미지 파일만 업로드 가능합니다.');
-      return;
-    }
+      if (!uploadedFile.type.startsWith('image/')) {
+        alert('이미지 파일만 업로드 가능합니다.');
+        return;
+      }
 
-    setIsUploading(true);
+      setIsUploading(true);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const result = reader.result as string;
-      setImageBase64(result);
-      setFile(uploadedFile);
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        try {
+          const result = reader.result as string;
+          setImageBase64(result);
+          setFile(uploadedFile);
 
-      const formData = new FormData();
-      formData.append('file', uploadedFile);
+          const formData = new FormData();
+          formData.append('file', uploadedFile);
 
-      axios
-        .post('https://realzero-back.fly.dev/api/ocr', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then((ocrResponse) => {
+          const ocrResponse = await axios.post(
+            'https://realzero-back.fly.dev/api/ocr',
+            formData,
+            {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            },
+          );
+
           if (ocrResponse.data && ocrResponse.data.inferText) {
             const inferTextString = ocrResponse.data.inferText.join(' ');
             router.push({
@@ -67,20 +72,80 @@ export default function RealZeroCaution() {
             console.error('OCR 응답이 유효하지 않습니다.');
             alert('텍스트가 추출되지 않았습니다. 잠시 후 다시 시도해주세요.');
           }
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error('Error:', error);
           alert('일시적 오류입니다. 잠시 후 다시 시도해주세요.');
-        })
-        .finally(() => {
+        } finally {
           setIsUploading(false);
-        });
-    };
-    reader.readAsDataURL(uploadedFile);
+        }
+      };
+      reader.readAsDataURL(uploadedFile);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('파일 처리가 실패했습니다. 잠시 후 다시 시도해주세요.');
+    }
   };
+
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
+
+  // const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  //   const uploadedFile = e.target.files?.[0];
+  //   if (!uploadedFile) {
+  //     alert('이미지 파일을 선택해주세요.');
+  //     return;
+  //   }
+
+  //   if (!uploadedFile.type.startsWith('image/')) {
+  //     alert('이미지 파일만 업로드 가능합니다.');
+  //     return;
+  //   }
+
+  //   setIsUploading(true);
+
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     const result = reader.result as string;
+  //     setImageBase64(result);
+  //     setFile(uploadedFile);
+
+  //     const formData = new FormData();
+  //     formData.append('file', uploadedFile);
+
+  //     axios
+  //       .post('https://realzero-back.fly.dev/api/ocr', formData, {
+  //         headers: { 'Content-Type': 'multipart/form-data' },
+  //       })
+  //       .then((ocrResponse) => {
+  //         if (ocrResponse.data && ocrResponse.data.inferText) {
+  //           const inferTextString = ocrResponse.data.inferText.join(' ');
+  //           router.push({
+  //             pathname: '/results',
+  //             query: {
+  //               loading: true,
+  //               inferText: inferTextString,
+  //               imageBase64: result,
+  //             },
+  //           });
+  //         } else {
+  //           console.error('OCR 응답이 유효하지 않습니다.');
+  //           alert('텍스트가 추출되지 않았습니다. 잠시 후 다시 시도해주세요.');
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error:', error);
+  //         alert('일시적 오류입니다. 잠시 후 다시 시도해주세요.');
+  //       })
+  //       .finally(() => {
+  //         setIsUploading(false);
+  //       });
+  //   };
+  //   reader.readAsDataURL(uploadedFile);
+  // };
+  // const handleButtonClick = () => {
+  //   fileInputRef.current?.click();
+  // };
 
   return (
     <>

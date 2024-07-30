@@ -11,7 +11,7 @@ export const RzTop = styled.div`
   width: 100%;
   max-width: 500px;
   height: 786px;
-  background-image: url('img/realzero_main_gpt_opacity.png');
+  background-image: url('img/realzero_main_gpt_opacity.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -134,7 +134,7 @@ export const RzTwoImgWrapper = styled.div`
   height: 341px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/main_part2.png);
+  background-image: url(img/main_part2.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -153,7 +153,7 @@ export const RzThreeImg1 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/main_sugar.png);
+  background-image: url(img/main_sugar.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -164,7 +164,7 @@ export const RzThreeImg2 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/main_al.png);
+  background-image: url(img/main_al.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -175,7 +175,7 @@ export const RzThreeImg3 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/main_honey.png);
+  background-image: url(img/main_honey.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -186,7 +186,7 @@ export const RzThreeImg4 = styled.div`
   height: 229px;
   background-color: #ddd;
   border-radius: 15px;
-  background-image: url(img/main_fruit.png);
+  background-image: url(img/main_fruit.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
