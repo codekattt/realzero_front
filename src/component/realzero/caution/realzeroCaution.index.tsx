@@ -9,8 +9,8 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 
 export default function RealZeroCaution() {
-  const [_, setFile] = useState<File | null>(null);
-  const [__, setImageBase64] = useState<string>('');
+  const [file, setFile] = useState<File | null>(null);
+  const [imageBase64, setImageBase64] = useState<string>('');
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
@@ -26,6 +26,9 @@ export default function RealZeroCaution() {
   };
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (isUploading) {
+      return;
+    }
     try {
       const uploadedFile = e.target.files?.[0];
       if (!uploadedFile) {
@@ -156,7 +159,11 @@ export default function RealZeroCaution() {
             결과 표출까지 최대 2분 소요될 수 있습니다.
           </S.BottomText>
           <S.BottomButtonWrapper>
-            <S.BottomButton onClick={handleButtonClick}>
+            <S.BottomButton
+              onClick={handleButtonClick}
+              disabled={isUploading}
+              aria-disabled={isUploading}
+            >
               {isUploading ? (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   AI가 이미지 분석 중...
@@ -174,6 +181,7 @@ export default function RealZeroCaution() {
             ref={fileInputRef}
             onChange={handleFileChange}
             style={{ display: 'none' }}
+            disabled={isUploading}
           />
         </S.Wrapper>
       </div>

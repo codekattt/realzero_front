@@ -30,8 +30,10 @@ export default function RealZeroResults(): JSX.Element {
   const isMounted = useRef(true);
 
   const moveToCaution = (): void => {
-    alert('다시 분석하시겠습니까?');
-    router.push('/caution');
+    const userConfirmed = confirm('다시 분석하시겠습니까?');
+    if (userConfirmed) {
+      router.push('/caution');
+    }
   };
 
   useEffect(() => {
@@ -88,7 +90,7 @@ export default function RealZeroResults(): JSX.Element {
       }}
     >
       <S.Wrapper>
-        <S.TopNavigation> 〈 분석 결과</S.TopNavigation>
+        <S.TopNavigation onClick={moveToCaution}> 〈 분석 결과</S.TopNavigation>
         <S.ResultWrapper>
           <S.RzH1>
             AI 분석 결과입니다.

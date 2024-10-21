@@ -10,7 +10,10 @@ export const Wrapper = styled.div`
 
 export const TopNavigation = styled.div`
   font-size: 24px;
+  width: 120px;
   margin: 50px 0 50px 30px;
+
+  cursor: pointer;
 `;
 
 export const ResultWrapper = styled.div`
@@ -51,7 +54,7 @@ export const RzH1 = styled.h1`
   text-align: center;
   line-height: normal;
   letter-spacing: -0.8px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 `;
 
 export const BottomCaution = styled.div`

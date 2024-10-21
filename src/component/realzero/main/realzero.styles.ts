@@ -205,10 +205,11 @@ export const BottomButtonWrapper = styled.div`
   bottom: 0;
 `;
 
-export const BottomButton = styled.div`
+export const BottomButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
   border-radius: 50px;
   color: #fff;
   background: #538596;

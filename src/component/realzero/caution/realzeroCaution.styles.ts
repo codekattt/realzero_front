@@ -157,10 +157,11 @@ export const BottomButtonWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-export const BottomButton = styled.div`
+export const BottomButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
   border-radius: 50px;
   color: #fff;
   background: #538596;
@@ -171,5 +172,10 @@ export const BottomButton = styled.div`
 
   :hover {
     background-color: #1a7a9b;
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
   }
 `;
