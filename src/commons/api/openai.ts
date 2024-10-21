@@ -3,7 +3,7 @@ import axios from 'axios';
 export default async function GetChatGPTResponse(prompt: string) {
   try {
     const response = await axios.post(
-      'https://realzero-back.fly.dev/api/openai',
+      'https://realzero-back.onrender.com/api/openai',
       {
         prompt,
       },
