@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import GetChatGPTResponse from '../../../commons/api/openai';
 import TypingEffect from '../../../commons/styles/typingEffect';
 import { ClipLoader } from 'react-spinners';
+import axios from 'axios';
 import * as S from './realzeroResult.styles';
 
 interface RouterQuery {
-  inferText?: string;
   imageBase64?: string;
 }
 
@@ -26,7 +26,7 @@ export default function RealZeroResults(): JSX.Element {
   );
 
   const router = useRouter();
-  const { imageBase64, inferText } = router.query as RouterQuery;
+  const { imageBase64 } = router.query as RouterQuery;
   const isMounted = useRef(true);
 
   const moveToCaution = (): void => {
@@ -40,19 +40,35 @@ export default function RealZeroResults(): JSX.Element {
     isMounted.current = true;
 
     async function fetchData(): Promise<void> {
-      if (!inferText) return;
+      if (!imageBase64) return;
       setLoading(true);
       setError(null);
       try {
-        const response = await GetChatGPTResponse(inferText);
-        if (isMounted.current) {
-          setResultData(response);
+        const blob = await (await fetch(imageBase64)).blob();
+        const file = new File([blob], 'image.jpg', { type: blob.type });
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const res = await axios.post(
+          'https://realzero-back.onrender.com/api/openai',
+          formData,
+          {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          },
+        );
+
+        const gptResponse = res.data.choices?.[0]?.message?.content;
+
+        if (isMounted.current && gptResponse) {
+          setResultData(gptResponse);
           setLoading(false);
         }
       } catch (error) {
         if (isMounted.current) {
           console.error('데이터 로딩 중 오류가 발생했습니다:', error);
-          setError('일시적 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          setError(
+            'AI 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+          );
           setLoading(false);
         }
       }
@@ -63,7 +79,7 @@ export default function RealZeroResults(): JSX.Element {
     return () => {
       isMounted.current = false;
     };
-  }, [inferText]);
+  }, [imageBase64]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
