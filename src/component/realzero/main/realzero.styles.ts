@@ -108,13 +108,13 @@ export const RzH1 = styled.h1`
 
 export const RzH3 = styled.h3`
   text-align: center;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 300;
   line-height: normal;
   letter-spacing: -0.88px;
-  margin: 24px 0;
+  margin: 20px 0;
   border-radius: 50px;
-  padding: 10px 16px;
+  padding: 10px 24px;
   background-color: white;
 `;
 
@@ -211,6 +211,7 @@ export const BottomButton = styled.button`
   align-items: center;
   border: none;
   border-radius: 50px;
+  font-size: 18px;
   color: #fff;
   background: #538596;
   width: 90%;

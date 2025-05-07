@@ -17,7 +17,7 @@ export default function RealZeroCaution() {
 
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 1200,
     });
   }, []);
 
@@ -42,42 +42,19 @@ export default function RealZeroCaution() {
     setIsUploading(true);
 
     const reader = new FileReader();
-    reader.onloadend = async () => {
-      try {
-        const result = reader.result as string; // base64
-        setImageBase64(result);
-        setFile(uploadedFile);
+    reader.onloadend = () => {
+      const result = reader.result as string;
+      setImageBase64(result);
+      setFile(uploadedFile);
 
-        const formData = new FormData();
-        formData.append('file', uploadedFile);
+      router.push({
+        pathname: '/results',
+        query: {
+          imageBase64: result,
+        },
+      });
 
-        const response = await axios.post(
-          'https://realzero-back.onrender.com/api/openai',
-          formData,
-          {
-            headers: { 'Content-Type': 'multipart/form-data' },
-          },
-        );
-
-        const message = response.data.choices?.[0]?.message?.content;
-
-        if (message) {
-          router.push({
-            pathname: '/results',
-            query: {
-              result: message,
-              imageBase64: result,
-            },
-          });
-        } else {
-          alert('AI 분석 결과를 받아오지 못했습니다.');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('AI 분석 중 오류가 발생했습니다.');
-      } finally {
-        setIsUploading(false);
-      }
+      setIsUploading(false);
     };
 
     reader.readAsDataURL(uploadedFile);
@@ -150,7 +127,7 @@ export default function RealZeroCaution() {
           </S.CautionWrapper>
           <S.BottomText data-aos="fade-up">
             이미지를 업로드하면 바로 분석이 시작됩니다. <br />
-            결과 표출까지 최대 2분 소요될 수 있습니다.
+            결과 표출까지 최대 1분 소요될 수 있습니다.
           </S.BottomText>
           <S.BottomButtonWrapper>
             <S.BottomButton
