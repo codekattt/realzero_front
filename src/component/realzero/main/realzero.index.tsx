@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function RealZero() {
   const router = useRouter();
 
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 1200,
     });
   }, []);
 
@@ -35,7 +35,7 @@ export default function RealZero() {
               지금 먹고있는 제로식품. <br />
               정말 제로가 맞는지 알아보세요.
             </S.Contents>
-            <S.TopButton onClick={moveToCaution}>지금 시작하기</S.TopButton>
+            <S.TopButton onClick={moveToCaution}>바로 시작하기</S.TopButton>
           </S.RzTop>
           <S.RzOne>
             <S.RzH1 data-aos="fade-up">

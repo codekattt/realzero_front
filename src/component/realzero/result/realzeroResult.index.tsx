@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import GetChatGPTResponse from '../../../commons/api/openai';
-import TypingEffect from '../../../commons/styles/typingEffect';
 import { ClipLoader } from 'react-spinners';
+import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import * as S from './realzeroResult.styles';
 
@@ -111,20 +110,20 @@ export default function RealZeroResults(): JSX.Element {
           <S.RzH1>
             AI 분석 결과입니다.
             <br />
-            {/* ‘ThisType’ 식품입니다. */}
           </S.RzH1>
           <S.ResultImage src={imageBase64} alt="Uploaded Image"></S.ResultImage>
           <S.Result>
-            {loading ? (
+            {loading && (
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={{ color: 'gray', marginRight: '4px' }}>
                   {loadingMessage}
                 </span>
                 <ClipLoader size={18} color={'gray'} />
               </div>
-            ) : null}
-            {error ? <div>{error}</div> : null}
-            {resultData ? <TypingEffect text={resultData} /> : null}
+            )}
+
+            {error && <div>{error}</div>}
+            {resultData && <ReactMarkdown>{resultData}</ReactMarkdown>}
           </S.Result>
         </S.ResultWrapper>
         <S.BottomCaution>

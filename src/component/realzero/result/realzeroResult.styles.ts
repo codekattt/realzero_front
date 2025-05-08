@@ -9,10 +9,9 @@ export const Wrapper = styled.div`
 `;
 
 export const TopNavigation = styled.div`
-  font-size: 24px;
+  font-size: 18px;
   width: 120px;
   margin: 50px 0 50px 30px;
-
   cursor: pointer;
 `;
 
@@ -42,18 +41,18 @@ export const Result = styled.div`
   background-color: #eeeeee;
   padding: 24px;
   text-align: left;
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.7;
   color: #0c343d;
   white-space: pre-wrap;
 `;
 
 export const RzH1 = styled.h1`
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   text-align: center;
-  line-height: normal;
-  letter-spacing: -0.8px;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
   margin-bottom: 40px;
 `;
 
@@ -62,6 +61,8 @@ export const BottomCaution = styled.div`
   max-width: 500px;
   text-align: center;
   color: #b7b7b7;
+  font-size: 14px;
+  line-height: 1.6;
   margin: 60px 0;
   padding: 0 15px;
 `;
@@ -80,6 +81,7 @@ export const BottomButton = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50px;
+  font-size: 16px;
   color: #fff;
   background: #538596;
   width: 90%;

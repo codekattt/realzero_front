@@ -32,7 +32,7 @@ export const Number = styled.div`
 `;
 
 export const TopNavigation = styled.div`
-  font-size: 24px;
+  font-size: 18px;
   margin: 50px 0 50px 30px;
   cursor: pointer;
 
@@ -42,109 +42,81 @@ export const TopNavigation = styled.div`
 `;
 
 export const RzH1 = styled.h1`
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   text-align: center;
-  line-height: normal;
+  line-height: 1.4;
   letter-spacing: -0.8px;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 `;
 
 export const RzH2 = styled.h2`
-  font-size: 20px;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.8px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.5px;
   margin-bottom: 0;
 `;
 
 export const RzH4 = styled.h4`
   text-align: center;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: normal;
-  letter-spacing: -0.64px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.5px;
   margin: 16px 0 30px 0;
 `;
 
 export const ImgWrapper = styled.div`
-  width: 334px;
+  width: 100%;
+  max-width: 334px;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  gap: 8px;
   margin-bottom: 80px;
+  padding: 0 10px;
+  box-sizing: border-box;
+`;
+
+const baseImageStyle = `
+  width: 48%;
+  aspect-ratio: 159 / 229;
+  border-radius: 15px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & img {
+    display: block;
+    float: inline-end;
+    margin: 10px;
+  }
 `;
 
 export const Img1 = styled.div`
-  width: 159px;
-  height: 229px;
-  background-color: #ddd;
-  border-radius: 15px;
+  ${baseImageStyle};
   background-image: url(img/caution1_wrong.webp);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  & img {
-    display: block;
-    float: inline-end;
-    margin: 10px;
-  }
 `;
 
 export const Img2 = styled.div`
-  width: 159px;
-  height: 229px;
-  background-color: #ddd;
-  border-radius: 15px;
+  ${baseImageStyle};
   background-image: url(img/caution1_correct.webp);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  & img {
-    display: block;
-    float: inline-end;
-    margin: 10px;
-  }
 `;
+
 export const Img3 = styled.div`
-  width: 159px;
-  height: 229px;
-  background-color: #ddd;
-  border-radius: 15px;
+  ${baseImageStyle};
   background-image: url(img/caution2_wrong.webp);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  & img {
-    display: block;
-    float: inline-end;
-    margin: 10px;
-  }
 `;
-export const Img4 = styled.div`
-  width: 159px;
-  height: 229px;
-  background-color: #ddd;
-  border-radius: 15px;
-  background-image: url(img/caution2_correct.webp);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 
-  & img {
-    display: block;
-    float: inline-end;
-    margin: 10px;
-  }
+export const Img4 = styled.div`
+  ${baseImageStyle};
+  background-image: url(img/caution2_correct.webp);
 `;
 
 export const BottomText = styled.div`
   text-align: center;
   margin-bottom: 60px;
-  font-size: 14px;
+  font-size: 13px;
   color: #aeaeae;
 `;
 
