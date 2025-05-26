@@ -12,7 +12,7 @@ const loadingMessages = [
   '이미지에서 텍스트를 추출하고 있어요..',
   '추출된 성분을 열심히 분석하고 있어요..',
   '제로식품인지 확인하고 있어요..',
-  'AI가 답변을 준비하고 있어요..',
+  'AI가 답변을 준비하고 있어요...',
 ];
 
 export default function RealZeroResults(): JSX.Element {
