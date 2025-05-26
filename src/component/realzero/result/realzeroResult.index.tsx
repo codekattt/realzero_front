@@ -96,9 +96,7 @@ export default function RealZeroResults() {
             )}
             {error && <div>{error}</div>}
             {!loading && !error && resultData && (
-              <ReactMarkdown style={{ lineHeight: '1.2' }}>
-                {resultData}
-              </ReactMarkdown>
+              <ReactMarkdown>{resultData}</ReactMarkdown>
             )}
           </S.Result>
         </S.ResultWrapper>
