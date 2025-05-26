@@ -2,15 +2,15 @@ import { useEffect, useState, useRef } from 'react';
 import type { ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import { ClipLoader } from 'react-spinners';
-import axios from 'axios';
+import { resizeImage, blobToBase64 } from '../../../utils/imageUtils';
 import * as S from './realzeroCaution.styles';
 
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 
 export default function RealZeroCaution() {
-  const [file, setFile] = useState<File | null>(null);
-  const [imageBase64, setImageBase64] = useState<string>('');
+  const [_file, setFile] = useState<File | null>(null);
+  const [_imageBase64, setImageBase64] = useState<string>('');
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
@@ -41,23 +41,25 @@ export default function RealZeroCaution() {
 
     setIsUploading(true);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const result = reader.result as string;
-      setImageBase64(result);
+    try {
+      const resizedBlob = await resizeImage(uploadedFile);
+      const base64 = await blobToBase64(resizedBlob);
+
+      setImageBase64(base64);
       setFile(uploadedFile);
 
       router.push({
         pathname: '/results',
         query: {
-          imageBase64: result,
+          imageBase64: base64,
         },
       });
-
+    } catch (err) {
+      console.error('이미지 압축 실패:', err);
+      alert('이미지 처리 중 오류가 발생했습니다.');
+    } finally {
       setIsUploading(false);
-    };
-
-    reader.readAsDataURL(uploadedFile);
+    }
   };
 
   const handleButtonClick = () => {
