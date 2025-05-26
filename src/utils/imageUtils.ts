@@ -8,6 +8,9 @@ export const resizeImage = (file: File): Promise<Blob> => {
       img.src = e.target.result as string;
     };
 
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const MAX_WIDTH = 800;
@@ -17,7 +20,7 @@ export const resizeImage = (file: File): Promise<Blob> => {
       canvas.height = img.height * scaleSize;
 
       const ctx = canvas.getContext('2d');
-      if (!ctx) return reject('canvas context 실패');
+      if (!ctx) return reject('Canvas context 실패');
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
       canvas.toBlob(
@@ -29,9 +32,6 @@ export const resizeImage = (file: File): Promise<Blob> => {
         0.8,
       );
     };
-
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
   });
 };
 
@@ -39,12 +39,10 @@ export const blobToBase64 = (blob: Blob): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onloadend = () => {
-      if (reader.result && typeof reader.result === 'string') {
-        resolve(reader.result);
-      } else {
-        reject('base64 인코딩 실패');
-      }
+      if (typeof reader.result === 'string') resolve(reader.result);
+      else reject('base64 인코딩 실패');
     };
+    reader.onerror = reject;
     reader.readAsDataURL(blob);
   });
 };
