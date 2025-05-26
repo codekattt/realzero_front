@@ -43,16 +43,14 @@ export default function RealZeroResults(): JSX.Element {
       setResultData('');
 
       try {
-        const blob = await (await fetch(imageBase64)).blob();
-        const file = new File([blob], 'image.jpg', { type: blob.type });
-        const formData = new FormData();
-        formData.append('file', file);
-
         const response = await fetch(
           'https://realzero-back.onrender.com/api/openai',
           {
             method: 'POST',
-            body: formData,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ image_url: imageBase64 }), // ✅ JSON으로 전송
           },
         );
 
