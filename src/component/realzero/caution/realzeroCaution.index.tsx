@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
-import type { ChangeEvent } from 'react';
+import { useEffect, useState, useRef, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import { ClipLoader } from 'react-spinners';
 import { resizeImage, blobToBase64 } from '../../../utils/imageUtils';
@@ -9,7 +8,7 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 
 export default function RealZeroCaution() {
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
@@ -17,7 +16,9 @@ export default function RealZeroCaution() {
     AOS.init({ duration: 1200 });
   }, []);
 
-  const moveToMain = () => router.push('/main');
+  const moveToMain = () => {
+    router.push('/main');
+  };
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (isUploading) return;
@@ -33,11 +34,9 @@ export default function RealZeroCaution() {
 
     setIsUploading(true);
     try {
-      const resized = await resizeImage(file);
-      const base64 = await blobToBase64(resized);
-
-      // sessionStorage에 저장
-      sessionStorage.setItem('uploadedImage', base64);
+      const resizedBlob = await resizeImage(file);
+      const base64 = await blobToBase64(resizedBlob);
+      sessionStorage.setItem('uploadedImageBase64', base64);
       router.push('/results');
     } catch (err) {
       console.error('이미지 처리 실패:', err);
@@ -47,7 +46,9 @@ export default function RealZeroCaution() {
     }
   };
 
-  const handleButtonClick = () => fileInputRef.current?.click();
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
     <>
