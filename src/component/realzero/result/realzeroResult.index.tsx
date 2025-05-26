@@ -50,7 +50,7 @@ export default function RealZeroResults(): JSX.Element {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ image_url: imageBase64 }), // ✅ JSON으로 전송
+            body: JSON.stringify({ image_url: imageBase64 }),
           },
         );
 
@@ -71,13 +71,14 @@ export default function RealZeroResults(): JSX.Element {
 
           for (const line of lines) {
             try {
-              const parsed = JSON.parse(line);
+              const jsonStr = line.replace(/^data:\s*/, '');
+              const parsed = JSON.parse(jsonStr);
               const content = parsed.choices?.[0]?.delta?.content;
               if (content) {
                 setResultData((prev) => (prev ?? '') + content);
               }
             } catch (err) {
-              console.warn('JSON 파싱 실패:', err);
+              console.warn('JSON 파싱 실패:', err, line);
             }
           }
         }
