@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { ClipLoader } from 'react-spinners';
 import ReactMarkdown from 'react-markdown';
-import axios from 'axios';
 import * as S from './realzeroResult.styles';
 
 interface RouterQuery {
@@ -36,48 +35,64 @@ export default function RealZeroResults(): JSX.Element {
   };
 
   useEffect(() => {
-    isMounted.current = true;
+    if (!imageBase64) return;
 
-    async function fetchData(): Promise<void> {
-      if (!imageBase64) return;
+    const fetchStreamedData = async () => {
       setLoading(true);
       setError(null);
+      setResultData('');
+
       try {
         const blob = await (await fetch(imageBase64)).blob();
         const file = new File([blob], 'image.jpg', { type: blob.type });
         const formData = new FormData();
         formData.append('file', file);
 
-        const res = await axios.post(
+        const response = await fetch(
           'https://realzero-back.onrender.com/api/openai',
-          formData,
           {
-            headers: { 'Content-Type': 'multipart/form-data' },
+            method: 'POST',
+            body: formData,
           },
         );
 
-        const gptResponse = res.data.choices?.[0]?.message?.content;
+        if (!response.body) throw new Error('응답 스트림이 비어 있음');
 
-        if (isMounted.current && gptResponse) {
-          setResultData(gptResponse);
-          setLoading(false);
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+
+          const lines = chunk
+            .split('\n')
+            .filter((line) => line.trim().startsWith('{'));
+
+          for (const line of lines) {
+            try {
+              const parsed = JSON.parse(line);
+              const content = parsed.choices?.[0]?.delta?.content;
+              if (content) {
+                setResultData((prev) => (prev ?? '') + content);
+              }
+            } catch (err) {
+              console.warn('JSON 파싱 실패:', err);
+            }
+          }
         }
-      } catch (error) {
-        if (isMounted.current) {
-          console.error('데이터 로딩 중 오류가 발생했습니다:', error);
-          setError(
-            'AI 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-          );
-          setLoading(false);
-        }
+
+        setLoading(false);
+      } catch (err) {
+        console.error('결과출력 중 오류발생:', err);
+        setError('AI 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        setLoading(false);
       }
-    }
-
-    fetchData();
-
-    return () => {
-      isMounted.current = false;
     };
+
+    fetchStreamedData();
   }, [imageBase64]);
 
   useEffect(() => {
