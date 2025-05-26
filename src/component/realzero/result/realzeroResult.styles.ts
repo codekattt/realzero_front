@@ -42,7 +42,7 @@ export const Result = styled.div`
   padding: 24px;
   text-align: left;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.2;
   color: #0c343d;
   white-space: pre-wrap;
 `;
