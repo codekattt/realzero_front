@@ -9,62 +9,45 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 
 export default function RealZeroCaution() {
-  const [_file, setFile] = useState<File | null>(null);
-  const [_imageBase64, setImageBase64] = useState<string>('');
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    AOS.init({
-      duration: 1200,
-    });
+    AOS.init({ duration: 1200 });
   }, []);
 
-  const moveToMain = () => {
-    router.push('/main');
-  };
+  const moveToMain = () => router.push('/main');
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (isUploading) return;
-
-    const uploadedFile = e.target.files?.[0];
-    if (!uploadedFile) {
+    const file = e.target.files?.[0];
+    if (!file) {
       alert('이미지 파일을 선택해주세요.');
       return;
     }
-
-    if (!uploadedFile.type.startsWith('image/')) {
+    if (!file.type.startsWith('image/')) {
       alert('이미지 파일만 업로드 가능합니다.');
       return;
     }
 
     setIsUploading(true);
-
     try {
-      const resizedBlob = await resizeImage(uploadedFile);
-      const base64 = await blobToBase64(resizedBlob);
+      const resized = await resizeImage(file);
+      const base64 = await blobToBase64(resized);
 
-      setImageBase64(base64);
-      setFile(uploadedFile);
-
-      router.push({
-        pathname: '/results',
-        query: {
-          imageBase64: base64,
-        },
-      });
+      // sessionStorage에 저장
+      sessionStorage.setItem('uploadedImage', base64);
+      router.push('/results');
     } catch (err) {
-      console.error('이미지 압축 실패:', err);
+      console.error('이미지 처리 실패:', err);
       alert('이미지 처리 중 오류가 발생했습니다.');
     } finally {
       setIsUploading(false);
     }
   };
 
-  const handleButtonClick = () => {
-    fileInputRef.current?.click();
-  };
+  const handleButtonClick = () => fileInputRef.current?.click();
 
   return (
     <>
