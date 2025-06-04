@@ -14,10 +14,10 @@ export const resizeImage = (file: File): Promise<Blob> => {
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const MAX_WIDTH = 800;
-      const scaleSize = MAX_WIDTH / img.width;
+      const scale = img.width > MAX_WIDTH ? MAX_WIDTH / img.width : 1;
 
-      canvas.width = MAX_WIDTH;
-      canvas.height = img.height * scaleSize;
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
 
       const ctx = canvas.getContext('2d');
       if (!ctx) return reject('Canvas context 실패');
