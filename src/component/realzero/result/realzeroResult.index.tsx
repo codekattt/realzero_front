@@ -4,6 +4,37 @@ import { ClipLoader } from 'react-spinners';
 import ReactMarkdown from 'react-markdown';
 import * as S from './realzeroResult.styles';
 
+const MAX_IMAGE_SIZE = 800;
+const CACHE_KEY_PREFIX = 'realzero_result_';
+
+const resizeImage = async (base64: string): Promise<string> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = base64;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let width = img.width;
+      let height = img.height;
+
+      if (width > MAX_IMAGE_SIZE || height > MAX_IMAGE_SIZE) {
+        if (width > height) {
+          height = (height / width) * MAX_IMAGE_SIZE;
+          width = MAX_IMAGE_SIZE;
+        } else {
+          width = (width / height) * MAX_IMAGE_SIZE;
+          height = MAX_IMAGE_SIZE;
+        }
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx?.drawImage(img, 0, 0, width, height);
+      resolve(canvas.toDataURL('image/jpeg', 0.8));
+    };
+  });
+};
+
 export default function RealZeroResults() {
   const router = useRouter();
   const [base64, setBase64] = useState<string | null>(null);
@@ -30,9 +61,19 @@ export default function RealZeroResults() {
       setResultData('');
 
       try {
-        const blob: Blob = await (await fetch(base64)).blob();
+        const cacheKey = CACHE_KEY_PREFIX + base64.slice(-50);
+        const cachedResult = localStorage.getItem(cacheKey);
+
+        if (cachedResult) {
+          setResultData(cachedResult);
+          setLoading(false);
+          return;
+        }
+
+        const optimizedImage = await resizeImage(base64);
+        const blob: Blob = await (await fetch(optimizedImage)).blob();
         const formData = new FormData();
-        formData.append('file', blob, 'upload.png');
+        formData.append('file', blob, 'upload.jpg');
 
         const resp = await fetch(
           'https://realzero-back.onrender.com/api/openai',
@@ -50,6 +91,8 @@ export default function RealZeroResults() {
         const content = data.choices
           .map((c: any) => c.message?.content ?? '')
           .join('');
+
+        localStorage.setItem(cacheKey, content);
         setResultData(content);
       } catch (err: any) {
         console.error('AI 분석 중 오류:', err);
@@ -78,7 +121,9 @@ export default function RealZeroResults() {
       }}
     >
       <S.Wrapper>
-        <S.TopNavigation onClick={moveToCaution}> 〈 분석 결과</S.TopNavigation>
+        <S.TopNavigation onClick={moveToCaution}>
+          〈 이전 페이지
+        </S.TopNavigation>
         <S.ResultWrapper>
           <S.RzH1>
             AI 분석 결과입니다.

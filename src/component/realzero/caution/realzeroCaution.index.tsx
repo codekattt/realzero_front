@@ -61,10 +61,7 @@ export default function RealZeroCaution() {
         }}
       >
         <S.Wrapper>
-          <S.TopNavigation onClick={moveToMain}>
-            {' '}
-            〈 이미지 업로드
-          </S.TopNavigation>
+          <S.TopNavigation onClick={moveToMain}>〈 이전 페이지</S.TopNavigation>
           <S.RzH1 data-aos="fade-up">
             정확한 성분 분석을 위한 <br />
             이미지 업로드 GUIDE
